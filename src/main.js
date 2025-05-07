@@ -1,4 +1,4 @@
-import './assets/main.css'
+// import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -6,6 +6,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+//引入初始化样式文件
+import '@/styles/common.scss'
 //测试接口函数
 import { getCategroy } from '@/apis/testAPI'
 getCategroy().then(res => {
