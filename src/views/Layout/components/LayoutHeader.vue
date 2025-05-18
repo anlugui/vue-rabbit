@@ -1,5 +1,17 @@
 <script setup>
-
+import { ref } from 'vue';
+import {getCategroyAPI} from '@/apis/layout'
+import { onMounted } from 'vue'
+const categoryList=ref([]) //用来存渲染的数组
+const getCategroy=async()=>{
+  const res=await getCategroyAPI()
+  console.log(res)
+  categoryList.value=res.result
+}
+//在挂载时候调用这个函数
+onMounted(()=>{
+  getCategroy()
+})
 </script>
 
 <template>
@@ -9,12 +21,10 @@
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
-        </li>
-        <li> <RouterLink to="/">居家</RouterLink> </li>
-        <li> <RouterLink to="/">美食</RouterLink> </li>
-        <li> <RouterLink to="/">服饰</RouterLink> </li>
+        <li class="home" v-for="item in categoryList" :key="item.id">
+          <RouterLink to="/">{{item.name}}</RouterLink>
+        </li>n  
+        
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
