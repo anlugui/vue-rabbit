@@ -2,16 +2,9 @@
 import { ref } from 'vue';
 import {getCategroyAPI} from '@/apis/layout'
 import { onMounted } from 'vue'
-const categoryList=ref([]) //用来存渲染的数组
-const getCategroy=async()=>{
-  const res=await getCategroyAPI()
-  console.log(res)
-  categoryList.value=res.result
-}
-//在挂载时候调用这个函数
-onMounted(()=>{
-  getCategroy()
-})
+//同样顶部也需要导入pinia的数据
+import { useCategoryStore } from '@/stores/category';
+const categoryStore=useCategoryStore()
 </script>
 
 <template>
@@ -21,10 +14,9 @@ onMounted(()=>{
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home" v-for="item in categoryList" :key="item.id">
+        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
           <RouterLink to="/">{{item.name}}</RouterLink>
-        </li>n  
-        
+        </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
